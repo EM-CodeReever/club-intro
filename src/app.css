@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blob-scene-bg{
+    background-image: url('/blob-scene-blob.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
