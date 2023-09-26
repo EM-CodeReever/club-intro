@@ -3,9 +3,10 @@
     import type { PageData } from './$types';
     import MessageCard from '../../components/MessageCard.svelte';
     import { browser } from '$app/environment';
-    
+    let disableAnimation = true;
     export let data: PageData;
-
+    $:console.log(disableAnimation);
+    
     let party_messages:string[] = [];
 
     let party_members: string[] = [];
@@ -19,35 +20,19 @@
     });
 
      // listen to party's broadcasts (this.party.broadcast) from server
-    let placeElementRandomly;
-     if(browser){
 
-function placeElementRandomly(element: HTMLElement) {
-    const pageWidth = window.innerWidth;
-    const pageHeight = window.innerHeight;
-
-    const elementWidth = element.offsetWidth;
-    const elementHeight = element.offsetHeight;
-
-    // Calculate random X and Y coordinates within the page boundaries
-    const randomX = Math.random() * (pageWidth - elementWidth);
-    const randomY = Math.random() * (pageHeight - elementHeight);
-
-    // Set the element's position
-    element.style.position = 'absolute';
-    element.style.left = `${randomX}px`;
-    element.style.top = `${randomY}px`;
-}
-
-// Example usage:
-// const yourElement = document.getElementById('message-card') as HTMLElement; // Replace with your element's actual ID
-// placeElementRandomly(yourElement);
-     } 
 </script>
+
+<div class="form-control absolute top-3 right-5">
+    <label class="label cursor-pointer">
+      <span class="label-text mr-3 ">Animation</span> 
+      <input type="checkbox" class="toggle" bind:checked={disableAnimation} />
+    </label>
+  </div>
 
 {#each party_messages as message}
 
-    <MessageCard message={message.split(":")[1]}/>
+    <MessageCard disableAnimation={!disableAnimation} message={message.split(":")[1]}/>
 
 {/each}
 

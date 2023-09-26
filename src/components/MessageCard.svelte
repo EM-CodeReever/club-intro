@@ -1,15 +1,45 @@
 <script lang="ts">
+    import { browser } from '$app/environment';
     export let name = 'John Doe';
     export let message: string;
-    let x = Math.floor(Math.random() * 90) + 'vh';
-    let y = Math.floor(Math.random() * 90) + 'vw';
-
+    export let disableAnimation = false;
+    import { draggable } from '@neodrag/svelte';
+    import type { DragOptions } from '@neodrag/svelte';
+    let mousedown = false;
+    let options: DragOptions = {
+    bounds: 'parent',
+  };
+  let z : number = 20;
+    let y = Math.floor(Math.random() * 80) + 'vh';
+    let x = Math.floor(Math.random() * 81) + 'vw';
     let colors = ['bg-red-400', 'bg-gold-400', 'bg-emerald-400', 'bg-sky-400', 'bg-indigo-400', 'bg-purple-400', 'bg-pink-400'];
     let uuid = Math.random().toString(36).substring(7);
+        // Get a reference to the div element
+        
+
+        // Function to handle mouseup event
+        function handleMouseUp(event: MouseEvent) {
+            if(browser){
+                const myDiv = document.getElementById('message-card');
+                // Get the position and dimensions of the div
+                const divRect = myDiv?.getBoundingClientRect();
+
+                // Calculate right and bottom values
+                const rightValue = window.innerWidth - divRect!.right;
+                const bottomValue = window.innerHeight - divRect!.bottom;
+
+                // Log or use the values as needed
+                console.log(`Right: ${rightValue}px, Bottom: ${bottomValue}px`);
+                myDiv!.style.right = rightValue + 'px';
+                myDiv!.style.bottom = bottomValue + 'px';
+
+                mousedown = false;
+            }
+}
     
 </script>
 
-<diV draggable="true" id="message-card" class="message-card bg-gray-900 text-gray-600 w-fit h-fit p-5 rounded-lg flex justify-start absolute" style="top: {x}; left: {y};">
+<diV on:mouseup={handleMouseUp} on:mousedown={()=>{mousedown = true}}  use:draggable={{ axis: 'both' }}  id="message-card" class="message-card bg-gray-900 text-gray-600 w-fit h-fit p-5 rounded-lg flex justify-start absolute" style="bottom: {y}; left: {x};">
     <div class="w-20 h-20 flex-none rounded-lg {colors[Math.floor(Math.random() * colors.length)]} mr-5">
         <!-- wanted the background-color of each img to be different for the code above, but not working for some reason -->
         <img src={`https://robohash.org/${uuid}`} alt="">
@@ -17,6 +47,7 @@
     <div class="text-gray-300">
         <h3><span class="font-bold">{name}</span> left this message: </h3>
         <p class="bg-gray-700 h-fit rounded-lg p-2 mt-3">{message}</p>
+        <!-- <button class="btn" on:click={()=>{x= z++ + 'vw'}}>ggg</button> -->
     </div>
 </diV>
  
@@ -48,10 +79,17 @@
             }
         }
 
+@keyframes crescendo {
+  0%   {transform: scale(1);}
+  100% {transform: scale(1.1);}
+}
+
 .message-card {
-        animation: float 6s ease-in-out infinite;
-        animation: GFG 4s linear infinite;
+        // animation: float 6s ease-in-out infinite;
+        // animation: GFG 4s linear infinite;
+        animation: crescendo 3s alternate ease-in-out infinite;
     }
+
 
 </style>
 
