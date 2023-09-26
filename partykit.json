@@ -1,0 +1,4 @@
+{
+  "name": "club-intro-party",
+  "main": "src/lib/server/party/index.ts"
+}
