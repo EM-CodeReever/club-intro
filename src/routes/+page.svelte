@@ -5,12 +5,27 @@
 
     let my_modal_4 :HTMLDialogElement;
 
+    export let data;
+    
+    let message: string
+
+    function sendMessage(message: string){
+      if (!data.clientSocket) return
+
+      console.log(message);
+      
+      data.clientSocket.send(message)
+    }
+
 </script>
 
 <section class="h-screen w-full flex justify-between pb-16 items-center flex-col bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
     <div class="navbar bg-neutral text-neutral-content">
         <p class="btn btn-ghost normal-case text-xl ">VTDI Computing Society</p>
       </div>
+
+      <input type="text" name="message" class="input" bind:value={message}>
+      <button class="btn btn-primary" on:click={()=>  {sendMessage(message)}}>Send Message</button>
       {#if !messagesVisible}
       <button class="btn-lg btn" on:click={()=> my_modal_4.showModal()}> Join Computing Society</button>
       <span>
