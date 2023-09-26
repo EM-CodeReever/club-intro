@@ -8,6 +8,7 @@
     export let data;
     
     let message: string
+    
 
     function sendMessage(message: string){
       if (!data.clientSocket) return
