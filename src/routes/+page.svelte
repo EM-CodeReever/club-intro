@@ -3,6 +3,7 @@
     import PfpCard from "../components/PFPCard.svelte";
     let messagesVisible = false;
 
+    let my_modal_4 :HTMLDialogElement;
 
 </script>
 
@@ -11,7 +12,7 @@
         <p class="btn btn-ghost normal-case text-xl ">VTDI Computing Society</p>
       </div>
       {#if !messagesVisible}
-      <button class="btn-lg btn" onclick="my_modal_4.showModal()"> Join Computing Society</button>
+      <button class="btn-lg btn" on:click={()=> my_modal_4.showModal()}> Join Computing Society</button>
       <span>
         <!-- empty span center the button above -->
       </span>
@@ -34,7 +35,7 @@
 
 
 <!-- You can open the modal using ID.showModal() method -->
-<dialog id="my_modal_4" class="modal">
+<dialog id="my_modal_4" class="modal" bind:this={my_modal_4}>
   <div class="modal-box w-11/12 max-w-5xl">
     <h3 class="font-bold text-lg text-center mt-5 mb-10">Welcome the V.T.D.I Computing Society Club</h3>
 
