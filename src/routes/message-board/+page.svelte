@@ -3,18 +3,20 @@
     import type { PageData } from './$types';
     import MessageCard from '../../components/MessageCard.svelte';
     import { browser } from '$app/environment';
-    let disableAnimation = true;
+    import type { Message } from '$lib/types';
+    
     export let data: PageData;
+    let disableAnimation = true;
     $:console.log(disableAnimation);
     
-    let party_messages:string[] = [];
+    let party_messages: Message[] = [];
 
     let party_members: string[] = [];
     onMount(() => {
 
         if(data.clientSocket){
             data.clientSocket.addEventListener("message", (event) => {
-                party_messages = [...party_messages, event.data] ;
+                party_messages = [...party_messages, JSON.parse(event.data)] ;
           });
         }  
     });
@@ -32,7 +34,7 @@
 
 {#each party_messages as message}
 
-    <MessageCard disableAnimation={!disableAnimation} message={message.split(":")[1]}/>
+    <MessageCard disableAnimation={disableAnimation} message={message.message}/>
 
 {/each}
 
