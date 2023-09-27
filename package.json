@@ -29,6 +29,7 @@
 	"type": "module",
 	"dependencies": {
 		"@neodrag/svelte": "^2.0.3",
+		"googleapis": "^126.0.1",
 		"partykit": "^0.0.23",
 		"partysocket": "0.0.8"
 	}
