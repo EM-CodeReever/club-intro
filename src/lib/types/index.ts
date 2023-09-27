@@ -1,9 +1,9 @@
 export type Message = {
-    sender: Sender;
+    sender: PartyMember;
     message: string;
 }
 
-export type Sender = {
+export type PartyMember = {
     connectionId: string;
     name?: string;
 }

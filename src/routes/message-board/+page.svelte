@@ -17,6 +17,8 @@
         if(data.clientSocket){
             data.clientSocket.addEventListener("message", (event) => {
                 party_messages = [...party_messages, JSON.parse(event.data)] ;
+                console.log(party_messages);
+                
           });
         }  
     });
@@ -34,7 +36,7 @@
 
 {#each party_messages as message}
 
-    <MessageCard disableAnimation={disableAnimation} message={message.message}/>
+    <MessageCard disableAnimation={disableAnimation} message={message.message} name={message.sender.name ?? "John Doe"}/>
 
 {/each}
 

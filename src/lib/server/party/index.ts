@@ -1,9 +1,9 @@
-import type { Message, Sender } from "$lib/types";
+import type { Message, PartyMember } from "$lib/types";
 import type * as Party from "partykit/server";
 
 export default class Server implements Party.Server {
 
-  members: Sender[] = [];
+  members: PartyMember[] = [];
   
   // can access to Party's state within class with 'this.party'
   constructor(readonly party: Party.Party) { 
@@ -18,11 +18,11 @@ export default class Server implements Party.Server {
     );
 
     
-
+    this.members.push({ connectionId: conn.id});
     // let's send a message to the connection
 
     let message: Message = { 
-      sender: { connectionId: conn.id, name: "server" }, 
+      sender: { connectionId: "server", name: "server" }, 
       message: "hello from server" 
     }
     conn.send(JSON.stringify(message));
@@ -38,7 +38,7 @@ export default class Server implements Party.Server {
       message: message,
       sender: { connectionId: sender.id }
     }
-    
+
     this.party.broadcast(JSON.stringify(messagex), [sender.id]);
   }
 }
