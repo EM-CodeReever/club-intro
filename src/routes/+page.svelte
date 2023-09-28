@@ -59,6 +59,7 @@ let registered = false
         on:click={() => {
           sendMessage(name, message);
           messageCount++;
+          message = "";
         }}>Send Message</button
       >
     </div>
