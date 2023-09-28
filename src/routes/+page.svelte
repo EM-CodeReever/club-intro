@@ -24,7 +24,7 @@
       class="aspect-square w-32 lg:w-56 rounded-full mx-auto"
     />
 
-    <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-5 lg:mb-10">
+    <h3 class="font-bold text-xl lg:text-2xl text-center mt-5 mb-5 lg:mb-10">
       Welcome the VTDI Computing Society Club
     </h3>
 
@@ -69,7 +69,7 @@
     <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-10">
       Sign up for the VTDI Computing Society Club
     </h3>
-      <form action="?/register" method="POST" use:enhance={()=>{
+      <form action="?/register" method="POST" class="flex flex-col space-y-3" use:enhance={()=>{
         return ({result})=>{
           if(result.type == "success"){
             toast.success("You have successfully registered for the club");
@@ -78,9 +78,21 @@
       }}>
         <input
           type="text"
-          placeholder="Enter name"
+          placeholder="Enter Name here"
           class="input input-bordered w-full col-span-1"
           name="name"
+        />
+        <input
+          type="text"
+          placeholder="Enter Email here"
+          class="input input-bordered w-full col-span-2"
+          name="email"
+        />
+        <input
+          type="text"
+          placeholder="Enter Phone Number"
+          class="input input-bordered w-full col-span-2"
+          name="phoneNumber"
         />
         <select class="select select-bordered w-full col-span-1" name="areaOfInterest">
           <option disabled selected>Pick your area of interest</option>
@@ -90,19 +102,13 @@
           <option>Software Development</option>
           <option>Photography</option>
         </select>
-        <input
-          type="text"
-          placeholder="Enter Email here"
-          class="input input-bordered w-full col-span-2"
-          name="email"
-        />
-        <button class="btn">Submit</button>
+        <button class="btn bg-[#094173]">Submit</button>
       </form>
   </div>
   
 {/if}
 <div class="flex justify-center mt-10">
-  <button class="btn m-auto" on:click={()=>{bool = !bool}}>Join our Club</button>
+  <button class="btn m-auto bg-[#094173]" on:click={()=>{bool = !bool}}>Join our Club</button>
 </div>
 
 
