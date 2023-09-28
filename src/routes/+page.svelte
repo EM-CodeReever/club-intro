@@ -1,16 +1,14 @@
 <script lang="ts">
   // import MessageCard from "../components/MessageCard.svelte";
-  import PfpCard from "../components/PFPCard.svelte";
-  let messagesVisible = false;
-
-  let my_modal_4: HTMLDialogElement;
-
+  import { fly } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
+  import { onMount } from "svelte";
+  import { enhance } from "$app/forms";
+  import toast, { Toaster } from 'svelte-french-toast';
+  let bool = true;
   export let data;
-
   let message: string;
   let name: string;
-  let email: string;
-  let clubMember: null;
 
   function sendMessage(name: string, message: string) {
     if (!data.clientSocket) return;
@@ -20,69 +18,92 @@
   }
 </script>
 
-<div class="modal-box w-11/12 max-w-5xl m-auto">
-  <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-10">
-    Welcome the V.T.D.I. Computing Society Club
-  </h3>
-  <img
-    src="/cs-logo.jpg"
-    alt=""
-    class="aspect-square w-56 rounded-full mx-auto mb-10"
-  />
-  <div class="grid grid-cols-2 gap-5 grid-flow-row">
+<img
+      src="/cs-logo.jpg"
+      alt=""
+      class="aspect-square w-32 lg:w-56 rounded-full mx-auto"
+    />
+
+    <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-5 lg:mb-10">
+      Welcome the VTDI Computing Society Club
+    </h3>
+
+{#if bool}
+  <div
+    class="modal-box w-11/12 max-w-5xl m-auto"
+    in:fly={{delay:500, y: 500, duration: 500, easing: quintOut }}
+    out:fly={{ y: -500, duration: 500, easing: quintOut }}
+  >
+   
+  <div class="font-semibold capitalize text-center text-lg">
+    <p>We're thrilled to have you here! 😃</p>
+    <p>Leave a message to pop up on our real-time message board!</p>
+    <p>See you there! 🚀✨</p>
+</div>
     
-    <div class="form-control col-span-2">
-      <label class="label" for="textarea">
-        <span class="label-text">Leave a message</span>
-      </label>
-      <input
-        type="text"
-        name="message"
-        class="input input-bordered w-full col-span-1"
-        bind:value={message}
-      />
+    <div class="grid grid-cols-2 gap-5 grid-flow-row">
+      <div class="form-control col-span-2">
+        <label class="label" for="textarea">
+          <span class="label-text">Leave a message</span>
+        </label>
+        <input
+          type="text"
+          name="message"
+          class="input input-bordered w-full col-span-1"
+          bind:value={message}
+        />
+      </div>
+      <button
+        class="btn bg-[#094173] ml-auto col-span-full"
+        on:click={() => {
+          sendMessage(name, message);
+        }}>Send Message</button
+      >
     </div>
-    <button
-      class="btn  bg-[#094173] ml-auto col-span-full"
-      on:click={() => {
-        sendMessage(name, message);
-      }}>Send Message</button
-    >
   </div>
-
-</div>
+  {:else}
+  <div class="p-5 modal-box w-full max-w-5xl m-auto flex flex-col space-y-3"
+  in:fly={{delay: 500, y: 500, duration: 500, easing: quintOut }}
+  out:fly={{ y: -500, duration: 500, easing: quintOut }}
+  >
+    <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-10">
+      Sign up for the VTDI Computing Society Club
+    </h3>
+      <form action="?/register" method="POST" use:enhance={()=>{
+        return ({result})=>{
+          if(result.type == "success"){
+            toast.success("You have successfully registered for the club");
+          }
+        }
+      }}>
+        <input
+          type="text"
+          placeholder="Enter name"
+          class="input input-bordered w-full col-span-1"
+          name="name"
+        />
+        <select class="select select-bordered w-full col-span-1" name="areaOfInterest">
+          <option disabled selected>Pick your area of interest</option>
+          <option>AI & Automation</option>
+          <option>Design, Gaming and Animation</option>
+          <option>Hardware, Networking and Information Security</option>
+          <option>Software Development</option>
+          <option>Photography</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Enter Email here"
+          class="input input-bordered w-full col-span-2"
+          name="email"
+        />
+        <button class="btn">Submit</button>
+      </form>
+  </div>
   
-<button class="btn">Join our Club</button>
-
-<!-- You can open the modal using ID.showModal() method -->
-<dialog id="my_modal_4" class="modal" bind:this={my_modal_4} />
-<div class="modal-action">
-
+{/if}
+<div class="flex justify-center mt-10">
+  <button class="btn m-auto" on:click={()=>{bool = !bool}}>Join our Club</button>
 </div>
 
 
 
-
-<div class="hidden">
-  <input
-      type="text"
-      placeholder="Enter name"
-      class="input input-bordered w-full col-span-1"
-      bind:value={name}
-    />
-    <select class="select select-bordered w-full col-span-1">
-      <option disabled selected>Pick your area of interest</option>
-      <option>Svelte</option>
-      <option>Vue</option>
-      <option>React</option>
-    </select>
-    <input
-      type="text"
-      placeholder="Enter Email here"
-      class="input input-bordered w-full col-span-2"
-      bind:value={email}
-    />
-</div>
-
-<style>
-</style>
