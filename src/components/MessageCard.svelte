@@ -54,7 +54,7 @@
     id="message-card"
     class="{mousedown
         ? ''
-        : 'message-card'} bg-gray-900 text-gray-600 w-fit h-fit p-5 rounded-lg flex justify-start absolute"
+        : 'message-card'} bg-gray-900 text-gray-600 w-fit h-fit p-3 rounded-lg flex justify-start absolute"
     style="bottom: {y}; left: {x};"
 >
     <div

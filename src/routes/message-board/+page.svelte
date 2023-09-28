@@ -7,8 +7,6 @@
     import { isCommandString } from '$lib/helpers';
     
     export let data: PageData;
-    let disableAnimation = true;
-    $:console.log(disableAnimation);
     
     let party_messages: Message[] = [];
 
@@ -49,13 +47,6 @@
      // listen to party's broadcasts (this.party.broadcast) from server
 
 </script>
-
-<div class="form-control absolute top-3 right-5">
-    <label class="label cursor-pointer">
-      <span class="label-text mr-3 ">Animation</span> 
-      <input type="checkbox" class="toggle" bind:checked={disableAnimation} />
-    </label>
-  </div>
 
 {#each party_messages as message}
 

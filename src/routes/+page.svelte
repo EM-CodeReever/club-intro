@@ -2,22 +2,22 @@
   // import MessageCard from "../components/MessageCard.svelte";
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
-  import { onMount } from "svelte";
   import { enhance } from "$app/forms";
   import toast, { Toaster } from 'svelte-french-toast';
+  let loading = false;
   let bool = true;
   export let data;
   let message: string;
   let name: string;
-
   function sendMessage(name: string, message: string) {
     if (!data.clientSocket) return;
     console.log(message);
 
     data.clientSocket.send(message);
   }
-</script>
 
+</script>
+<Toaster />
 <img
       src="/cs-logo.jpg"
       alt=""
@@ -70,9 +70,12 @@
       Sign up for the VTDI Computing Society Club
     </h3>
       <form action="?/register" method="POST" class="flex flex-col space-y-3" use:enhance={()=>{
+        loading = true;
         return ({result})=>{
           if(result.type == "success"){
-            toast.success("You have successfully registered for the club");
+            toast.success("Successfully Registered for the VTDI Computing Society Club!");
+            bool = true;
+            loading = false;
           }
         }
       }}>
@@ -102,13 +105,13 @@
           <option>Software Development</option>
           <option>Photography</option>
         </select>
-        <button class="btn bg-[#094173]">Submit</button>
+        <button class="btn m-auto bg-[#094173] {loading ? 'loading' : ''}" >Submit</button>
       </form>
   </div>
   
 {/if}
 <div class="flex justify-center mt-10">
-  <button class="btn m-auto bg-[#094173]" on:click={()=>{bool = !bool}}>Join our Club</button>
+  <button class="btn m-auto" on:click={()=>{bool = !bool}}>Join our Club</button>
 </div>
 
 
