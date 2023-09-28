@@ -27,6 +27,8 @@ export default class Server implements Party.Server {
       message: "hello from server"
     }
     conn.send(JSON.stringify(message));
+
+    this.party.broadcast(`/member-join:${conn.id}`, [conn.id]);
   }
 
   // runs when a connection SENDS a message using 'socket.send(msg)'

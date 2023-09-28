@@ -31,6 +31,7 @@
 		"@neodrag/svelte": "^2.0.3",
 		"googleapis": "^126.0.1",
 		"partykit": "^0.0.23",
-		"partysocket": "0.0.8"
+		"partysocket": "0.0.8",
+		"resend": "^1.1.0"
 	}
 }
