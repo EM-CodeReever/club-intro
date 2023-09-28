@@ -55,7 +55,7 @@ let registered = false
         />
       </div>
       <button
-        class="btn btn-success ml-auto col-span-full"
+        class="btn bg-[#094173] ml-auto col-span-full"
         on:click={() => {
           sendMessage(name, message);
           messageCount++;
@@ -68,7 +68,7 @@ let registered = false
   in:fly={{delay: 500, y: 500, duration: 500, easing: quintOut }}
   out:fly={{ y: -500, duration: 500, easing: quintOut }}
   >
-    <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-10">
+    <h3 class="font-bold text-lg lg:text-2xl text-center mt-5 mb-10 text-white">
       Sign up for the VTDI Computing Society Club
     </h3>
       <form action="?/register" method="POST" class="flex flex-col space-y-3" use:enhance={()=>{
@@ -110,7 +110,7 @@ let registered = false
           <option>Software Development</option>
           <option>Photography</option>
         </select>
-        <button class="btn m-auto btn-success {loading ? 'loading' : ''}" on:click={()=>{registered = true}}>Submit</button>
+        <button class="btn m-auto bg-[#094173] {loading ? 'loading' : ''}" on:click={()=>{registered = true}}>Submit</button>
       </form>
   </div>
   
