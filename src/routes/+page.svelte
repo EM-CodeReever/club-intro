@@ -73,6 +73,7 @@
         return ({result})=>{
           if(result.type == "success"){
             toast.success("You have successfully registered for the club");
+            data.clientSocket?.send(`/update-name:${name}`)
           }
         }
       }}>
