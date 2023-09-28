@@ -15,7 +15,8 @@
 
     data.clientSocket.send(message);
   }
-
+let messageCount = 0
+let registered = false
 </script>
 <Toaster />
 <img
@@ -54,9 +55,10 @@
         />
       </div>
       <button
-        class="btn bg-[#094173] ml-auto col-span-full"
+        class="btn btn-success ml-auto col-span-full"
         on:click={() => {
           sendMessage(name, message);
+          messageCount++;
         }}>Send Message</button
       >
     </div>
@@ -106,13 +108,13 @@
           <option>Software Development</option>
           <option>Photography</option>
         </select>
-        <button class="btn m-auto bg-[#094173] {loading ? 'loading' : ''}" >Submit</button>
+        <button class="btn m-auto btn-success {loading ? 'loading' : ''}" on:click={()=>{registered = true}}>Submit</button>
       </form>
   </div>
   
 {/if}
 <div class="flex justify-center mt-10">
-  <button class="btn m-auto" on:click={()=>{bool = !bool}}>Join our Club</button>
+  <button class="btn m-auto" disabled={messageCount >= 2 && registered} on:click={()=>{bool = !bool}}>{(!registered)? 'Join our Club' : 'Send another message'}</button>
 </div>
 
 
