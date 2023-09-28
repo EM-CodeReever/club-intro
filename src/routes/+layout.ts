@@ -8,7 +8,7 @@ export const load = (async () => {
 
     if(browser){
         clientSocket = new PartySocket({
-            host : dev ? "localhost:1999" : 'some url',
+            host : dev ? "localhost:1999" : 'https://club-intro-party.mcole-k9.partykit.dev',
             room: "message-board"
         });
         
