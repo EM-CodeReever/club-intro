@@ -71,12 +71,13 @@
     </h3>
       <form action="?/register" method="POST" class="flex flex-col space-y-3" use:enhance={()=>{
         loading = true;
-        return ({result})=>{
+        return ({result, update})=>{
           if(result.type == "success"){
+            data.clientSocket?.send(`/update-name:${name}`)
             bool = true;
             loading = false;
             toast.success("Successfully Registered for the VTDI Computing Society Club!");
-            data.clientSocket?.send(`/update-name:${name}`)
+            update();
           }
         }
       }}>
@@ -85,6 +86,7 @@
           placeholder="Enter Name here"
           class="input input-bordered w-full col-span-1"
           name="name"
+          bind:value={name}
         />
         <input
           type="text"
