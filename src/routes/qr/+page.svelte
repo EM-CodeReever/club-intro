@@ -7,6 +7,6 @@
 
 <div class="flex justify-center h-[90vh]">
     
-<img src="site-qr.png" alt="QR CODE" class="m-auto">
+<img src="site-qr.png" alt="QR CODE" class="m-auto rounded-2xl">
 
 </div>
