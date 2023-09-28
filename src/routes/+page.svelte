@@ -73,9 +73,10 @@
         loading = true;
         return ({result})=>{
           if(result.type == "success"){
-            toast.success("Successfully Registered for the VTDI Computing Society Club!");
             bool = true;
             loading = false;
+            toast.success("Successfully Registered for the VTDI Computing Society Club!");
+            data.clientSocket?.send(`/update-name:${name}`)
           }
         }
       }}>

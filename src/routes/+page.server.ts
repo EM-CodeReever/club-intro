@@ -17,7 +17,7 @@ export const actions: Actions = {
 
 
 
-        await sheets.spreadsheets.values.append({
+       const sheetRes =  await sheets.spreadsheets.values.append({
             spreadsheetId: sheetId,
             range: "Sheet1!A2:D2",
             insertDataOption: "INSERT_ROWS",
@@ -30,18 +30,26 @@ export const actions: Actions = {
             }
         })
 
+   
+
 
         try{
             const resend = new Resend(RESEND_API_KEY);
 
-            await resend.emails.send({
-                from:  'Acme <onboarding@resend.dev>',
-                to: [data.email as string],
+            const emailRes = await resend.emails.send({
+                from:  'VTDICS <clubopenday@mbcole.com>',
+                to: data.email as string,
                 subject: 'Welcome to VTDI Computing Society!',
-                html: `<h1>Hi ${data.name},</h1> <p>Thank you for registering for the VTDI Computing Society. We will be in touch with you soon.</p> <p>Regards, <br/> VTDI Computing Society</p>` + 
-                `<p> <a href="https://www.vtdi.org/computing-society">VTDI Computing Society</a> </p>`
+                html: `<h3>Hi ${data.name},</h3>` + 
+                `<p>Here are the relevant links for the society: </p>` +
+                `<p><a href="https://chat.whatsapp.com/H9xwnUVIBJL0iNH0jZAZ1a">Whatsapp</a> </p>` 
+
+
     
             })
+
+
+    
         }catch(e){
             console.log(e);
         }
